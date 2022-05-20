@@ -4,7 +4,7 @@ import { NavbarUserLoginSignUp } from "./navbar-user-login";
 
 export function Navbar({ email }: { email: string }) {
   return (
-    <nav>
+    <nav className="bg-gray-200">
       <div className="flex w-full items-center justify-between px-20">
         <div className="flex items-center">
           <Link to="/">

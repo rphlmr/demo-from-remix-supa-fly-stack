@@ -12,6 +12,7 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useMatches,
 } from "@remix-run/react";
 
 import { Navbar } from "./components/navbar";
@@ -45,6 +46,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function App() {
   const { ENV, email } = useLoaderData() as LoaderData;
+  const matches = useMatches();
+
+  // And here we can filter thru route's handle 😎
+  const hideNavbar =
+    matches
+      // get routes that have hideNavbar
+      .filter((match) => match.handle?.hideNavbar).length > 0;
 
   return (
     <html
@@ -56,7 +64,7 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
-        <Navbar email={email} />
+        {hideNavbar ? null : <Navbar email={email} />}
         <Outlet />
         <ScrollRestoration />
         <script
